@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+​
+<head>
+  <meta charset="UTF-8">
+  <title>restaurant</title>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+​
+</head>
+​
+<body>
+​
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Hot Restaurant</h1>
+      <h3>We only have 5 tables! Book your seat before they all are gone!</h3>
+      <hr>
+      <a href="/add"><button class="btn btn-primary btn-lg viewButton"><span class="fa fa-plus"></span> View Tables</button></a>
+      <a href="/api/characters"><button class="btn btn-danger btn-lg reservationButton"><span
+            class="fa fa-eye"></span> Make Reservation</button></a>
+    </div>
+​
+​
+​
+   
+​
+  <script type="text/javascript">
+    $(".reservationButton").on("click", function(event) {
+      event.preventDefault();
+      var newBooking = {
+        name: $("#name").val().trim(),
+        phone: $("#role").val().trim(),
+        email: $("#age").val().trim(),
+        id: $("#force-points").val().trim()
+      };
+      for(var i=0;i<=5;i++)
+       {
+      $.post("/api/", newBooking)
+        .then(function(data) {
+         
+          alert("You are booked");
+        });
+    }
+
+    });
+
+    $(".viewButton").on("click", function() {
+      var tables = $("#character-search").val().trim();
+
+      
+      viewButton = searchedCharacter.replace(/\s+/g, "").toLowerCase();
+
+      $.get("/api/characters/" + searchedCharacter, function(data) {
+        console.log(data);
+        if (data) {
+          $("#stats").show();
+          $("#name").text(data.name);
+          $("#role").text(data.role);
+          $("#age").text(data.age);
+          $("#force-points").text(data.forcePoints);
+        } else {
+          $("#name").text(
+            "The force is not strong with this one. Your character was not found.");
+          $("#stats").hide();
+        }
+      });
+    });
+
+​
+  </script>
+</body>
+​
